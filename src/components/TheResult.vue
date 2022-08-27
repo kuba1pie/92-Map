@@ -14,7 +14,7 @@
   </div>
 </template><script setup lang="ts">
 const store = useDefaultStore();
-const distanceKm = store.distance / 1000
+const distanceKm = store.distance.valueOf() / 1000
 </script>
 <style lang="scss">
 
