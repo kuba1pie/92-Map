@@ -9,7 +9,7 @@
     >{{ (props.type == "lon") ? 'Longitude' : 'Latitude' }}</label>
     <input
       :id="props.point"
-      v-model="formData[props.point]"
+      v-model="formData[props.point as keyof Coordinates]"
       type="text"
       :name="props.point"
       :placeholder="placeholder"
@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import useVueLidate from '@vuelidate/core';
 import { required, between, integer, helpers } from '@vuelidate/validators';
+import { Coordinates } from '../types';
 
 const store = useDefaultStore();
 
