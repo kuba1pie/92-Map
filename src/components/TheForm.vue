@@ -1,44 +1,92 @@
 <script setup lang="ts">
-const store = useDefaultStore();
-defineProps<{ msg: string }>()
+import useVueLidate from '@vuelidate/core';
+import { required, between, integer, helpers } from '@vuelidate/validators';
+import { Coordinates } from '../types';
+import FormInput from './FormInput.vue';
 
-const count = ref(0)
+const store = useDefaultStore();
+
+const formData: Coordinates = store.coordinates
+
+const rules = reactive({
+  lonStart: { required, integer, betweenValue: between(-180, 180), },
+  latStart: { required, integer, betweenValue: between(-90, 90), },
+  lonEnd: { required, integer, betweenValue: between(-180, 180) },
+  latEnd: { required, integer, betweenValue: between(-90, 90), },
+})
+const v$ = useVueLidate(rules, formData)
+
+async function submitForm() {
+  const result = await v$.value.$validate();
+  if (result) {
+    store.getDistance()
+  }
+}
+function clearForm() {
+  store.coordinates = {
+    lonStart: '',
+    latStart: '',
+    lonEnd: '',
+    latEnd: ''
+  }
+}
+
+let points = [{ name: 'lonStart', type: 'lon' },
+{
+  name: 'latStart', type: 'lat'
+},
+{ name: 'lonEnd', type: 'lon' }, { name: 'latEnd', type: 'lat' }]
+
 </script>
 
 <template>
-  <div class="flex-row">
-    First point:
-    <div class="p-4">
-      Longitute:
-      <FormInput />
-    </div>
-    <div class="p-4">
-      Langitude:
-      <FormInput />
-    </div>
-  </div>
-  <div class="flex-row">
-    Second point:
-    <div class="p-4">
-      Longitute:
-      <FormInput />
-    </div>
-    <div class="p-4">
-      Langitude:
-      <FormInput />
-    </div>
-  </div>
-  <input type="submit">
+  <div class="c-TheForm wrapper flex-col">
+    <FormInput
+      v-for="point in points"
+      :key="point.name"
+      :point="point.name"
+      :type="point.type"
+    />
 
-  <FormButton>
-    Calculate
-  </FormButton>
-  <FormButton>
-    Convert
-  </FormButton>
+    <div class="flex place-items-center">
+      <FormButton
+        class="bg-green-500"
+        @click="submitForm()"
+      >
+        Calculate
+      </FormButton>
+      <FormButton
+        class="bg-red-500"
+        @click="clearForm()"
+      >
+        Clear
+      </FormButton>
+    </div>
+  </div>
 </template>
+<style>
+.red {
+  border-color: #8a3434;
+}
 
-<style scoped lang="sass">
-.read-the-docs
-  color: #888
+.wrapper>div:nth-child(3)::before {
+  content: 'End point';
+  font-size: 1.3em;
+  color: #aaaaaa;
+  margin: 1rem
+}
+
+.wrapper>div:nth-child(1)::before {
+  content: 'Start point';
+  font-size: 1.3em;
+  color: #aaaaaa;
+  margin: 1rem
+}
+.wrapper>.c-FormInput {
+  min-height: 14rem;
+}
+.wrapper>.c-FormInput:nth-child(even) {
+  min-height: 10rem;
+}
+
 </style>

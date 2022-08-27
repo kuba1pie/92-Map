@@ -1,11 +1,13 @@
-import { createApp } from "vue";
-import { createPinia } from "pinia";
-import "./style.sass";
-import App from "./App.vue";
-import { createRouter, createWebHistory } from "vue-router";
-import { createHead } from "@vueuse/head";
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import './style.sass';
+import App from './App.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import { createHead } from '@vueuse/head';
+import 'uno.css'
+import useVuelidate from '@vuelidate/core'
 
-import routes from "~pages";
+import routes from '~pages';
 
 const pinia = createPinia();
 const router = createRouter({
@@ -14,4 +16,6 @@ const router = createRouter({
 });
 const head = createHead();
 
-createApp(App).use(router).use(pinia).use(head).mount("#app");
+createApp(App).use(router).use(pinia).use(head).mount('#app');
+
+

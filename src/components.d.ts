@@ -8,10 +8,14 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     FormButton: typeof import('./components/FormButton.vue')['default']
+    FormErrors: typeof import('./components/FormErrors.vue')['default']
     FormInput: typeof import('./components/FormInput.vue')['default']
+    FormInput2: typeof import('./components/FormInput2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheForm: typeof import('./components/TheForm.vue')['default']
     TheHeader: typeof import('./components/TheHeader.vue')['default']
+    TheResult: typeof import('./components/TheResult.vue')['default']
+    TheSlot: typeof import('./components/TheSlot.vue')['default']
   }
 }

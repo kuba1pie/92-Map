@@ -1,23 +1,66 @@
-<script setup lang="ts">
-const store = useDefaultStore();
-defineProps<{ msg: string }>()
-
-const count = ref(0)
-</script>
-
 <template>
-  <label for="fname">First name:</label><br>
-  <input
-    id="fname"
-    type="text"
-    name="fname"
-    pattern="[a-zA-Z0-9]+"
-    minlength="4"
-    maxlength="10"
-  ><br>
+  <div
+    class="c-FormInput place-items-center flex flex-col"
+    :class="props.point"
+  >
+    <label
+      class="label p-10"
+      :for="props.point"
+    >{{ (props.type == "lon") ? 'Longitude' : 'Latitude' }}</label>
+    <input
+      :id="props.point"
+      v-model="formData[props.point]"
+      type="text"
+      :name="props.point"
+      :placeholder="placeholder"
+      :class="{ red: v$[props.point].$error }"
+      class="input"
+      @blur="v$[props.point].$touch"
+    >
+    <FormErrors
+      v-show="v$[props.point].$error"
+      :errors="v$[props.point].$errors"
+    />
+  </div>
 </template>
+<script setup lang="ts">
+import useVueLidate from '@vuelidate/core';
+import { required, between, integer, helpers } from '@vuelidate/validators';
 
-<style scoped lang="sass">
-.read-the-docs
-  color: #888
+const store = useDefaultStore();
+
+const formData = store.coordinates
+
+const rules = reactive({
+  lonStart: { required, integer, betweenValue: between(-180, 180), },
+  latStart: { required, integer, betweenValue: between(-90, 90), },
+  lonEnd: { required, integer, betweenValue: between(-180, 180) },
+  latEnd: { required, integer, betweenValue: between(-90, 90), },
+})
+const v$ = useVueLidate(rules, formData)
+
+const props = defineProps({
+  point: {
+    type: String,
+    default: ''
+  },
+  type: {
+    type: String,
+    default: ''
+  }
+})
+
+const placeholder: string = (props.type === 'lon') ? '-180.00 to 180.00' : '-90.00 to 90.00'
+
+</script>
+<style lang="scss">
+.input {
+  display: block;
+  text-align: center;
+  margin: 0.2em auto;
+  font-size: 1em;
+}
+.label {
+  padding: .625rem
+}
 </style>

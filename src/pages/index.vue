@@ -1,15 +1,22 @@
 <template>
-  <TheHeader />
-  <TheForm />
+  <div class="v-Index">
+    <TheHeader />
+    <main class="main flex flex-col items-center">
+      <TheForm />
+      <TheResult v-if="store.showModal" />
+    </main>
+  </div>
 </template>
+<script setup lang="ts">
+const store = useDefaultStore();
 
-<style scoped lang="sass">
-.logo
-  height: 6em
-  padding: 1.5em
-  will-change: filter
-  &:hover
-    filter: drop-shadow(0 0 2em #646cffaa)
-.logo.vue:hover 
-  filter: drop-shadow(0 0 2em #42b883aa)
+</script>
+<style lang="scss">
+
+.v-Index {
+  font-size: 2em;
+  @media screen and (max-width: 700px) {
+      font-size: 1em;
+    }
+}
 </style>
