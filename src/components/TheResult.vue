@@ -5,7 +5,9 @@
         class="close"
         @click="store.showModal=false"
       >&times;</span>
-      <span class="font-semibold">Distance: </span> <br>
+      <p class="font-semibold">
+        Distance:
+      </p>
       <p class="p">
         {{ store.distance }} meters that is
         {{ distanceKm }} kilometers

@@ -5,7 +5,6 @@ import App from './App.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { createHead } from '@vueuse/head';
 import 'uno.css'
-import useVuelidate from '@vuelidate/core'
 
 import routes from '~pages';
 

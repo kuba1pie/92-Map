@@ -1,5 +1,5 @@
 <template>
-  <button class="button mx-8">
+  <button class="button">
     <slot />
   </button>
 </template>

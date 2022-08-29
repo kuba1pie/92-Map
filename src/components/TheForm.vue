@@ -6,7 +6,7 @@ import FormInput from './FormInput.vue';
 
 const store = useDefaultStore();
 
-const formData: Coordinates = store.coordinates
+let formData: Coordinates = store.coordinates
 
 const rules = reactive({
   lonStart: { required, integer, betweenValue: between(-180, 180), },
@@ -20,14 +20,6 @@ async function submitForm() {
   const result = await v$.value.$validate();
   if (result) {
     store.getDistance()
-  }
-}
-function clearForm() {
-  store.coordinates = {
-    lonStart: '',
-    latStart: '',
-    lonEnd: '',
-    latEnd: ''
   }
 }
 
@@ -44,24 +36,16 @@ let points = [{ name: 'lonStart', type: 'lon' },
     <FormInput
       v-for="point in points"
       :key="point.name"
+      ref="form"
       :point="point.name"
       :type="point.type"
     />
-
-    <div class="flex place-items-center">
-      <FormButton
-        class="bg-green-500"
-        @click="submitForm()"
-      >
-        Calculate
-      </FormButton>
-      <FormButton
-        class="bg-red-500"
-        @click="clearForm()"
-      >
-        Clear
-      </FormButton>
-    </div>
+    <FormButton
+      class="bg-green-500"
+      @click="submitForm()"
+    >
+      Calculate
+    </FormButton>
   </div>
 </template>
 <style>

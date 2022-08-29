@@ -30,7 +30,7 @@ import { Coordinates } from '../types';
 
 const store = useDefaultStore();
 
-const formData = store.coordinates
+const formData = (store.coordinates)
 
 const rules = reactive({
   lonStart: { required, integer, betweenValue: between(-180, 180), },
