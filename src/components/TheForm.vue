@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import useVueLidate from '@vuelidate/core';
-import { required, between, integer, helpers } from '@vuelidate/validators';
-import { Coordinates } from '../types';
+import { required, between, integer } from '@vuelidate/validators';
 import FormInput from './FormInput.vue';
 
 const store = useDefaultStore();
 
-let formData: Coordinates = store.coordinates
+let formData = computed(() => store.coordinates);
 
 const rules = reactive({
   lonStart: { required, integer, betweenValue: between(-180, 180), },
