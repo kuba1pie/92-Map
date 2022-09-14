@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const store = useDefaultStore()
+</script>
+
 <template>
   <div class="v-Index">
     <TheHeader />
@@ -7,12 +11,8 @@
     </main>
   </div>
 </template>
-<script setup lang="ts">
-const store = useDefaultStore();
 
-</script>
 <style lang="scss">
-
 .v-Index {
   font-size: 2em;
   @media screen and (max-width: 700px) {

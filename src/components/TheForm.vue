@@ -1,33 +1,31 @@
 <script setup lang="ts">
-import useVueLidate from '@vuelidate/core';
-import { required, between, integer } from '@vuelidate/validators';
-import FormInput from './FormInput.vue';
+import useVueLidate from '@vuelidate/core'
+import { between, integer, required } from '@vuelidate/validators'
+import FormInput from './FormInput.vue'
 
-const store = useDefaultStore();
+const store = useDefaultStore()
 
-let formData = computed(() => store.coordinates);
+const formData = computed(() => store.coordinates)
 
 const rules = reactive({
-  lonStart: { required, integer, betweenValue: between(-180, 180), },
-  latStart: { required, integer, betweenValue: between(-90, 90), },
+  lonStart: { required, integer, betweenValue: between(-180, 180) },
+  latStart: { required, integer, betweenValue: between(-90, 90) },
   lonEnd: { required, integer, betweenValue: between(-180, 180) },
-  latEnd: { required, integer, betweenValue: between(-90, 90), },
+  latEnd: { required, integer, betweenValue: between(-90, 90) },
 })
 const v$ = useVueLidate(rules, formData)
 
 async function submitForm() {
-  const result = await v$.value.$validate();
-  if (result) {
+  const result = await v$.value.$validate()
+  if (result)
     store.getDistance()
-  }
 }
 
-let points = [{ name: 'lonStart', type: 'lon' },
-{
-  name: 'latStart', type: 'lat'
-},
-{ name: 'lonEnd', type: 'lon' }, { name: 'latEnd', type: 'lat' }]
-
+const points = [{ name: 'lonStart', type: 'lon' },
+  {
+    name: 'latStart', type: 'lat',
+  },
+  { name: 'lonEnd', type: 'lon' }, { name: 'latEnd', type: 'lat' }]
 </script>
 
 <template>
@@ -47,6 +45,7 @@ let points = [{ name: 'lonStart', type: 'lon' },
     </FormButton>
   </div>
 </template>
+
 <style>
 .red {
   border-color: #8a3434;
@@ -71,5 +70,4 @@ let points = [{ name: 'lonStart', type: 'lon' },
 .wrapper>.c-FormInput:nth-child(even) {
   min-height: 10rem;
 }
-
 </style>
