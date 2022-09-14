@@ -1,12 +1,12 @@
-import { defineConfig } from 'vitest/config';import vue from '@vitejs/plugin-vue';
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import Pages from 'vite-plugin-pages';
+import { defineConfig } from 'vitest/config'; import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import Pages from 'vite-plugin-pages'
 import Unocss from 'unocss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    test: {
+  test: {
     include: ['./test/**/*', './store/*.test.ts', './database/*.test.ts', './src/*.test.ts'],
     testTimeout: 15000,
   },
@@ -32,7 +32,7 @@ export default defineConfig({
     Pages({
       dirs: [{ dir: 'src/pages', baseRoute: '' }],
     }),
-    Unocss({ /* options */ })
+    Unocss({ /* options */ }),
   ],
-  
-});
+
+})

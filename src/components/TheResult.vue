@@ -1,9 +1,14 @@
+<script setup lang="ts">
+const store = useDefaultStore()
+const distanceKm = store.distance.valueOf() / 1000
+</script>
+
 <template>
   <div class="modal">
     <div class="modalContent m-5">
       <span
         class="close"
-        @click="store.showModal=false"
+        @click="store.showModal = false"
       >&times;</span>
       <p class="font-semibold">
         Distance:
@@ -14,13 +19,9 @@
       </p>
     </div>
   </div>
-</template><script setup lang="ts">
-const store = useDefaultStore();
-const distanceKm = store.distance.valueOf() / 1000
-</script>
+</template>
+
 <style lang="scss">
-
-
 .modal {
   position: fixed;
   z-index: 1;
